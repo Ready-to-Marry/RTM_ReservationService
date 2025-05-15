@@ -7,6 +7,7 @@ import ready_to_marry.reservationservice.common.util.CatalogClient;
 import ready_to_marry.reservationservice.reservation.dto.request.ReservationAnswerRequest;
 import ready_to_marry.reservationservice.reservation.dto.request.ReservationCreateRequest;
 import ready_to_marry.reservationservice.reservation.dto.response.ReservationDTO;
+import ready_to_marry.reservationservice.reservation.dto.response.ReservationDetailResponse;
 import ready_to_marry.reservationservice.reservation.entity.Reservation;
 import ready_to_marry.reservationservice.reservation.service.ReservationService;
 
@@ -72,8 +73,10 @@ public class ReservationController {
 
     // 4. ALL - 단건 조회
     @GetMapping("/{reservationId}")
-    public ApiResponse<Reservation> getById(@PathVariable Long reservationId) {
-        return ApiResponse.success(service.getById(reservationId));
+    public ApiResponse<ReservationDetailResponse> getById(@PathVariable Long reservationId) {
+        Reservation entity = service.getById(reservationId);
+        ReservationDetailResponse dto = ReservationDetailResponse.from(entity);
+        return ApiResponse.<ReservationDetailResponse>success(dto);
     }
 
     // 5. USER - 예약 취소
