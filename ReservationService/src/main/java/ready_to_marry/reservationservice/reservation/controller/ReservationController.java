@@ -73,12 +73,4 @@ public class ReservationController {
         return ApiResponse.success(null);
     }
 
-    // 7. PARTNER - 상태 수동 변경
-    @PatchMapping("/{reservationId}/status")
-    public ApiResponse<Void> updateStatus(@PathVariable Long reservationId,
-                                          @RequestHeader("X-PARTNER-ID") Long partnerId,
-                                          @RequestBody ReservationStatusUpdateRequest request) {
-        service.updateStatus(reservationId, partnerId, request.getStatus());
-        return ApiResponse.success(null);
-    }
 }

@@ -4,6 +4,4 @@ public enum ReservationStatus {
     PENDING,     // 문의 등록됨
     ANSWERED,    // 파트너 응답 완료
     CANCELLED,   // 사용자 취소
-    CLOSED,      // 종결됨
-    REJECTED     // 파트너가 거절
 }
