@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ready_to_marry.reservationservice.common.dto.*;
 import ready_to_marry.reservationservice.common.util.CatalogClient;
-import ready_to_marry.reservationservice.reservation.dto.ReservationAnswerRequest;
-import ready_to_marry.reservationservice.reservation.dto.ReservationCreateRequest;
-import ready_to_marry.reservationservice.reservation.dto.ReservationStatusUpdateRequest;
+import ready_to_marry.reservationservice.reservation.dto.request.ReservationAnswerRequest;
+import ready_to_marry.reservationservice.reservation.dto.request.ReservationCreateRequest;
+import ready_to_marry.reservationservice.reservation.dto.response.ReservationDTO;
 import ready_to_marry.reservationservice.reservation.entity.Reservation;
 import ready_to_marry.reservationservice.reservation.service.ReservationService;
 
@@ -40,14 +40,34 @@ public class ReservationController {
 
     // 2. USER - 내 문의 목록 조회
     @GetMapping("/user")
-    public ApiResponse<List<Reservation>> getMyReservations(@RequestHeader("X-USER-ID") Long userId) {
-        return ApiResponse.success(service.getUserReservations(userId));
+    public ApiResponse<List<ReservationDTO>> getMyReservations(
+            @RequestHeader("X-USER-ID") Long userId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        List<Reservation> list = service.getUserReservations(userId);
+        List<ReservationDTO> summaryList = list.stream()
+                .map(ReservationDTO::from)
+                .toList();
+
+        Meta meta = new Meta(page, size, summaryList.size(), (int) Math.ceil((double) summaryList.size() / size));
+        return ApiResponse.success(summaryList, meta);
     }
 
     // 3. PARTNER - 받은 문의 목록 조회
     @GetMapping("/partner")
-    public ApiResponse<List<Reservation>> getPartnerReservations(@RequestHeader("X-PARTNER-ID") Long partnerId) {
-        return ApiResponse.success(service.getPartnerReservations(partnerId));
+    public ApiResponse<List<ReservationDTO>> getPartnerReservations(
+            @RequestHeader("X-PARTNER-ID") Long partnerId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        List<Reservation> list = service.getPartnerReservations(partnerId);
+        List<ReservationDTO> summaryList = list.stream()
+                .map(ReservationDTO::from)
+                .toList();
+
+        Meta meta = new Meta(page, size, summaryList.size(), (int) Math.ceil((double) summaryList.size() / size));
+        return ApiResponse.success(summaryList, meta);
     }
 
     // 4. ALL - 단건 조회

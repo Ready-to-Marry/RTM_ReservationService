@@ -1,4 +1,4 @@
-package ready_to_marry.reservationservice.reservation.dto;
+package ready_to_marry.reservationservice.reservation.dto.request;
 
 import lombok.Getter;
 
