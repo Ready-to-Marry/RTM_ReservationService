@@ -73,10 +73,11 @@ public class ReservationController {
 
     // 4. ALL - 단건 조회
     @GetMapping("/{reservationId}")
-    public ApiResponse<ReservationDetailResponse> getById(@PathVariable Long reservationId) {
-        Reservation entity = service.getById(reservationId);
-        ReservationDetailResponse dto = ReservationDetailResponse.from(entity);
-        return ApiResponse.<ReservationDetailResponse>success(dto);
+    public ApiResponse<ReservationDetailResponse> getById(@PathVariable Long reservationId,
+                                                          @RequestHeader(value = "X-USER-ID", required = false) Long userId,
+                                                          @RequestHeader(value = "X-PARTNER-ID", required = false) Long partnerId) {
+        Reservation entity = service.getByIdWithAuth(reservationId, userId, partnerId);
+        return ApiResponse.success(ReservationDetailResponse.from(entity));
     }
 
     // 5. USER - 예약 취소

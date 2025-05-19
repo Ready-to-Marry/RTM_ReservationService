@@ -1,13 +1,16 @@
 package ready_to_marry.reservationservice.common.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
     private int code;
@@ -37,5 +40,11 @@ public class ApiResponse<T> {
         res.errors = errors;
         return res;
     }
-}
 
+    public static <T> ApiResponse<T> error(int code, String message) {
+        ApiResponse<T> res = new ApiResponse<>();
+        res.code = code;
+        res.message = message;
+        return res;
+    }
+}
