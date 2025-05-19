@@ -8,6 +8,10 @@ public interface ReservationService {
     List<Reservation> getUserReservations(Long userId);
     List<Reservation> getPartnerReservations(Long partnerId);
     Reservation getById(Long reservationId);
+
+    // 4-1. 권한 검증 포함 상세 조회
+    Reservation getByIdWithAuth(Long reservationId, Long userId, Long partnerId);
+
     void cancel(Long reservationId, Long userId);
     void answer(Long reservationId, Long partnerId, String answer);
     void updateStatus(Long reservationId, Long partnerId, String status);
