@@ -3,6 +3,7 @@ package ready_to_marry.reservationservice.reservation.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ready_to_marry.reservationservice.common.config.CatalogClient;
 import ready_to_marry.reservationservice.common.exception.BusinessException;
 import ready_to_marry.reservationservice.common.exception.ErrorCode;
 import ready_to_marry.reservationservice.common.exception.InfrastructureException;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository repository;
+    private final CatalogClient catalogClient;
 
     // 1. USER -> 예약 문의 생성
     @Override
@@ -53,7 +55,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation getById(Long reservationId) {
         try {
-            return repository.findById(reservationId).orElseThrow();
+            return repository.findById(reservationId).orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESERVATION));
         } catch (Exception e) {
             throw new InfrastructureException(ErrorCode.DB_READ_FAILURE, e);
         }
@@ -73,6 +75,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         return r;
     }
+
     // 5. USER -> 예약 문의 취소
     @Override
     @Transactional
