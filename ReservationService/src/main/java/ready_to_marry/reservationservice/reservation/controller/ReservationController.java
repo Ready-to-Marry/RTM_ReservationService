@@ -2,8 +2,8 @@ package ready_to_marry.reservationservice.reservation.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ready_to_marry.reservationservice.common.config.CatalogClient;
 import ready_to_marry.reservationservice.common.dto.*;
-import ready_to_marry.reservationservice.common.util.CatalogClient;
 import ready_to_marry.reservationservice.reservation.dto.request.ReservationAnswerRequest;
 import ready_to_marry.reservationservice.reservation.dto.request.ReservationCreateRequest;
 import ready_to_marry.reservationservice.reservation.dto.response.ReservationDTO;
