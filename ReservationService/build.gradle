@@ -40,9 +40,9 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.2.5'
     runtimeOnly 'com.h2database:h2'
 
-    // Eureka + LoadBalancer
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+//    // Eureka + LoadBalancer
+//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
 
     // Actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
