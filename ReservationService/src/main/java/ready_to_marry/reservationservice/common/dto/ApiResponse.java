@@ -47,4 +47,8 @@ public class ApiResponse<T> {
         res.message = message;
         return res;
     }
+
+    public boolean isSuccess() {
+        return this.code == 0;
+    }
 }

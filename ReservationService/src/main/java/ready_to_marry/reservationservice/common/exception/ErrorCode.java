@@ -18,7 +18,8 @@ public enum ErrorCode {
 
     // 27xx: Infrastructure (system) errors
     DB_WRITE_FAILURE(2700, "Failed to write data to the database"),
-    DB_READ_FAILURE(2701, "Failed to read data from the database");
+    DB_READ_FAILURE(2701, "Failed to read data from the database"),
+    INTERNAL_REQUEST_FAIL(2702, "Internal service request failed");
 
     private final int code;
     private final String message;
