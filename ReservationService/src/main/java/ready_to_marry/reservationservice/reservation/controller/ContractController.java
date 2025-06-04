@@ -20,7 +20,9 @@ public class ContractController {
     public ContractListResponse requestContract(@RequestBody ContractRequest request,
                                                 @RequestHeader("X-Partner-Id") Long partnerId) {
         System.out.println("호출 완료");
-        System.out.println(request.toString());
+        System.out.println("partnerId: " + partnerId);
+        System.out.println(request.getReservationId());
+        System.out.println(request.getAmount());
         return contractService.createContract(request, partnerId);
     }
 
