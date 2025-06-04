@@ -18,19 +18,19 @@ public class ContractController {
     // 1. Partner -> 계약 생성 (결제 요청)
     @PostMapping("/request")
     public ContractListResponse requestContract(@RequestBody ContractRequest request,
-                                                @RequestHeader("X-PARTNER-ID") Long partnerId) {
+                                                @RequestHeader("X-Partner-Id") Long partnerId) {
         return contractService.createContract(request, partnerId);
     }
 
     // 2. User -> 사용자 계약 목록 조회
     @GetMapping("/user")
-    public List<ContractListResponse> getContractsForUser(@RequestHeader("X-USER-ID") Long userId) {
+    public List<ContractListResponse> getContractsForUser(@RequestHeader("X-User-Id") Long userId) {
         return contractService.getContractsForUser(userId);
     }
 
     // 3. Partner -> 파트너 계약 목록 조회
     @GetMapping("/partner")
-    public List<ContractListResponse> getContractsForPartner(@RequestHeader("X-PARTNER-ID") Long partnerId) {
+    public List<ContractListResponse> getContractsForPartner(@RequestHeader("X-Partner-Id") Long partnerId) {
         return contractService.getContractsForPartner(partnerId);
     }
 
@@ -48,13 +48,13 @@ public class ContractController {
 
     // 6. User -> 사용자에 의한 계약 취소
     @PatchMapping("/{id}/cancel")
-    public void cancelByUser(@PathVariable Long id, @RequestHeader("X-USER-ID") Long userId) {
+    public void cancelByUser(@PathVariable Long id, @RequestHeader("X-User-Id") Long userId) {
         contractService.cancelByUser(id, userId);
     }
 
     // 7. Partner -> 파트너에 의한 계약 취소
     @PatchMapping("/{id}/partner-cancel")
-    public void cancelByPartner(@PathVariable Long id, @RequestHeader("X-PARTNER-ID") Long partnerId) {
+    public void cancelByPartner(@PathVariable Long id, @RequestHeader("X-Partner-Id") Long partnerId) {
         contractService.cancelByPartner(id, partnerId);
     }
 }

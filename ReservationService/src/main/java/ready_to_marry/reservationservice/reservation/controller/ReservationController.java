@@ -24,7 +24,7 @@ public class ReservationController {
     // 1. USER - 예약 문의 등록
     @PostMapping
     public ApiResponse<Long> create(@RequestBody ReservationCreateRequest request,
-                                    @RequestHeader("X-USER-ID") Long userId) {
+                                    @RequestHeader("X-User-Id") Long userId) {
 
         Long partnerId = catalogClient.getPartnerIdByItemId(request.getItemId());
 
@@ -42,7 +42,7 @@ public class ReservationController {
     // 2. USER - 내 문의 목록 조회
     @GetMapping("/user")
     public ApiResponse<List<ReservationDTO>> getMyReservations(
-            @RequestHeader("X-USER-ID") Long userId,
+            @RequestHeader("X-User-Id") Long userId,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
 
@@ -58,7 +58,7 @@ public class ReservationController {
     // 3. PARTNER - 받은 문의 목록 조회
     @GetMapping("/partner")
     public ApiResponse<List<ReservationDTO>> getPartnerReservations(
-            @RequestHeader("X-PARTNER-ID") Long partnerId,
+            @RequestHeader("X-Partner-Id") Long partnerId,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
 
@@ -83,7 +83,7 @@ public class ReservationController {
     // 5. USER - 예약 취소
     @DeleteMapping("/{reservationId}")
     public ApiResponse<Void> cancel(@PathVariable Long reservationId,
-                                    @RequestHeader("X-USER-ID") Long userId) {
+                                    @RequestHeader("X-User-Id") Long userId) {
         service.cancel(reservationId, userId);
         return ApiResponse.success(null);
     }
@@ -91,7 +91,7 @@ public class ReservationController {
     // 6. PARTNER - 예약 응답
     @PatchMapping("/{reservationId}/answer")
     public ApiResponse<Void> answer(@PathVariable Long reservationId,
-                                    @RequestHeader("X-PARTNER-ID") Long partnerId,
+                                    @RequestHeader("X-Partner-Id") Long partnerId,
                                     @RequestBody ReservationAnswerRequest request) {
         service.answer(reservationId, partnerId, request.getAnswerMessage());
         return ApiResponse.success(null);
