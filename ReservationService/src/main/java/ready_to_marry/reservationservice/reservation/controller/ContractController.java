@@ -19,6 +19,8 @@ public class ContractController {
     @PostMapping("/request")
     public ContractListResponse requestContract(@RequestBody ContractRequest request,
                                                 @RequestHeader("X-Partner-Id") Long partnerId) {
+        System.out.println("호출 완료");
+        System.out.println(request.toString());
         return contractService.createContract(request, partnerId);
     }
 
