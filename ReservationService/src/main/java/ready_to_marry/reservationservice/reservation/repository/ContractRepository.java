@@ -12,5 +12,4 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     Contract findByReservation_ReservationId(Long reservationId);
 
-    Contract findByContractIdAndUserId(Long contractId, Long userId);
 }
