@@ -2,6 +2,7 @@ package ready_to_marry.reservationservice.reservation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import ready_to_marry.reservationservice.reservation.entity.Contract;
 import ready_to_marry.reservationservice.reservation.enums.ContractStatus;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@ToString
 public class ContractListResponse {
 
     private Long contractId;

@@ -2,6 +2,7 @@ package ready_to_marry.reservationservice.reservation.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ready_to_marry.reservationservice.common.dto.ApiResponse;
 import ready_to_marry.reservationservice.reservation.dto.request.ContractRequest;
 import ready_to_marry.reservationservice.reservation.dto.response.ContractListResponse;
 import ready_to_marry.reservationservice.reservation.service.ContractService;
@@ -17,13 +18,13 @@ public class ContractController {
 
     // 1. Partner -> 계약 생성 (결제 요청)
     @PostMapping("/request")
-    public ContractListResponse requestContract(@RequestBody ContractRequest request,
-                                                @RequestHeader("X-Partner-Id") Long partnerId) {
+    public ApiResponse<ContractListResponse> requestContract(@RequestBody ContractRequest request,
+                                                            @RequestHeader("X-Partner-Id") Long partnerId) {
         System.out.println("호출 완료");
         System.out.println("partnerId: " + partnerId);
-        System.out.println(request.getReservationId());
-        System.out.println(request.getAmount());
-        return contractService.createContract(request, partnerId);
+        ContractListResponse response = contractService.createContract(request, partnerId);
+        System.out.println(response.toString());
+        return ApiResponse.success(response);
     }
 
     // 2. User -> 사용자 계약 목록 조회
