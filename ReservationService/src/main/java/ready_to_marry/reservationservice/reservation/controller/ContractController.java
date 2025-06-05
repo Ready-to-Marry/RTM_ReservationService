@@ -1,6 +1,7 @@
 package ready_to_marry.reservationservice.reservation.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ready_to_marry.reservationservice.common.dto.ApiResponse;
 import ready_to_marry.reservationservice.reservation.dto.request.ContractRequest;
@@ -35,8 +36,8 @@ public class ContractController {
     }
 
     @GetMapping("/detail/{contractId}")
-    public ContractResponse getContractDetail(@PathVariable("contractId") Long contractId) {
-        return contractService.getContractDetail(contractId);
+    public ApiResponse<ContractResponse> getContractDetail(@PathVariable("contractId") Long contractId) {
+        return ApiResponse.success(contractService.getContractDetail(contractId));
     }
 
     // 3. Partner -> 파트너 계약 목록 조회
