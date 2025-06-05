@@ -17,6 +17,7 @@ import ready_to_marry.reservationservice.reservation.repository.ContractReposito
 import ready_to_marry.reservationservice.reservation.repository.ReservationRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -99,14 +100,16 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractResponse getContractDetail(Long contractId) {
-        Contract contract = contractRepository.findByReservation_ReservationId(contractId);
-        ContractResponse result = ContractResponse.builder()
+        Contract contract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CONTRACT));
+
+        return ContractResponse.builder()
                 .partnerId(contract.getPartnerId())
                 .itemId(contract.getItemId())
                 .amount(contract.getAmount())
                 .build();
-        return result;
     }
+
 
     @Override
     public List<ContractListResponse> getContractsForUser(Long userId) {
