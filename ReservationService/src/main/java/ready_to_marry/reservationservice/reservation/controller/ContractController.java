@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ready_to_marry.reservationservice.common.dto.ApiResponse;
 import ready_to_marry.reservationservice.reservation.dto.request.ContractRequest;
 import ready_to_marry.reservationservice.reservation.dto.response.ContractListResponse;
+import ready_to_marry.reservationservice.reservation.dto.response.ContractResponse;
 import ready_to_marry.reservationservice.reservation.service.ContractService;
 
 import java.util.List;
@@ -31,6 +32,11 @@ public class ContractController {
     @GetMapping("/user")
     public List<ContractListResponse> getContractsForUser(@RequestHeader("X-User-Id") Long userId) {
         return contractService.getContractsForUser(userId);
+    }
+
+    @GetMapping("/detail/{contractId}")
+    public ContractResponse getContractDetail(@PathVariable("contractId") Long contractId) {
+        return contractService.getContractDetail(contractId);
     }
 
     // 3. Partner -> 파트너 계약 목록 조회

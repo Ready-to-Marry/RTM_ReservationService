@@ -8,6 +8,7 @@ import ready_to_marry.reservationservice.common.exception.ErrorCode;
 import ready_to_marry.reservationservice.common.exception.NotFoundException;
 import ready_to_marry.reservationservice.reservation.dto.request.ContractRequest;
 import ready_to_marry.reservationservice.reservation.dto.response.ContractListResponse;
+import ready_to_marry.reservationservice.reservation.dto.response.ContractResponse;
 import ready_to_marry.reservationservice.reservation.entity.Contract;
 import ready_to_marry.reservationservice.reservation.entity.Reservation;
 import ready_to_marry.reservationservice.reservation.enums.ContractStatus;
@@ -94,6 +95,17 @@ public class ContractServiceImpl implements ContractService {
             throw new BusinessException(ErrorCode.UNAUTHORIZED_CONTRACT_ACCESS);
         }
         return ContractListResponse.from(contract);
+    }
+
+    @Override
+    public ContractResponse getContractDetail(Long contractId) {
+        Contract contract = contractRepository.findByReservation_ReservationId(contractId);
+        ContractResponse result = ContractResponse.builder()
+                .partnerId(contract.getPartnerId())
+                .itemId(contract.getItemId())
+                .amount(contract.getAmount())
+                .build();
+        return result;
     }
 
     @Override
